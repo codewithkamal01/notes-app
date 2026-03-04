@@ -4,7 +4,6 @@ import Header from "./Header";
 import NotesGrid from "./NotesGrid";
 import NoteModal from "./NoteModal";
 
-// Initial mock data
 const initialNotes = [
   {
     id: 1,
