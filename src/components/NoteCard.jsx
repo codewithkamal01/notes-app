@@ -1,6 +1,6 @@
-import { Star, Trash } from "lucide-react";
+import { Star, Trash, Pencil } from "lucide-react";
 
-function NoteCard({ note, onDeleteNote, onToggleImportant }) {
+function NoteCard({ note, onDeleteNote, onToggleImportant, onEditNote }) {
   if (!note) return null;
 
   return (
@@ -10,16 +10,28 @@ function NoteCard({ note, onDeleteNote, onToggleImportant }) {
           <h2 className="text-lg font-semibold text-gray-800">{note.title}</h2>
           <p className="text-sm text-gray-500 mt-2 line-clamp-3">{note.content}</p>
         </div>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onDeleteNote && onDeleteNote(note.id);
-          }}
-          className="ml-2 p-1 text-gray-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition"
-          title="Delete note"
-        >
-          <Trash size={18} />
-        </button>
+        <div className="flex gap-1 ml-2 opacity-0 group-hover:opacity-100 transition">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onEditNote && onEditNote(note);
+            }}
+            className="p-1 text-gray-400 hover:text-blue-600 transition"
+            title="Edit note"
+          >
+            <Pencil size={18} />
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onDeleteNote && onDeleteNote(note.id);
+            }}
+            className="p-1 text-gray-400 hover:text-red-600 transition"
+            title="Delete note"
+          >
+            <Trash size={18} />
+          </button>
+        </div>
       </div>
       <div className="mt-4 text-xs text-gray-400 flex items-center justify-between">
         {note.date}

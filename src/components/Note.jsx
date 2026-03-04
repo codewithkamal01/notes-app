@@ -33,9 +33,16 @@ function Note({ filter = "all" }) {
   const [notes, setNotes] = useState(initialNotes);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [editingNote, setEditingNote] = useState(null);
 
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const handleOpenModal = () => {
+    setEditingNote(null);
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setEditingNote(null);
+  };
   const handleSearch = (term) => setSearchTerm(term);
   const handleDeleteNote = (id) => {
     setNotes(notes.filter(note => note.id !== id));
@@ -47,16 +54,30 @@ function Note({ filter = "all" }) {
         : note
     ));
   };
+  const handleEditNote = (note) => {
+    setEditingNote(note);
+    setIsModalOpen(true);
+  };
 
-  const handleCreateNote = (formData) => {
-    const newNote = {
-      id: Math.max(...notes.map(n => n.id), 0) + 1,
-      type: "all",
-      title: formData.title,
-      content: formData.content,
-      date: new Date().toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: '2-digit' }).replace(/\//g, ' '),
-    };
-    setNotes([newNote, ...notes]);
+  const handleSaveNote = (formData) => {
+    if (editingNote) {
+      // Update existing note
+      setNotes(notes.map(note =>
+        note.id === editingNote.id
+          ? { ...note, title: formData.title, content: formData.content }
+          : note
+      ));
+    } else {
+      // Create new note
+      const newNote = {
+        id: Math.max(...notes.map(n => n.id), 0) + 1,
+        type: "all",
+        title: formData.title,
+        content: formData.content,
+        date: new Date().toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: '2-digit' }).replace(/\//g, ' '),
+      };
+      setNotes([newNote, ...notes]);
+    }
   };
 
   return (
@@ -66,13 +87,14 @@ function Note({ filter = "all" }) {
         {/* Main Content */}
         <main className="flex-1 flex flex-col">
           <Header onAddNote={handleOpenModal} onSearch={handleSearch} searchValue={searchTerm} />
-          <NotesGrid notes={notes} filter={filter} searchTerm={searchTerm} onDeleteNote={handleDeleteNote} onToggleImportant={handleToggleImportant} />
+          <NotesGrid notes={notes} filter={filter} searchTerm={searchTerm} onDeleteNote={handleDeleteNote} onToggleImportant={handleToggleImportant} onEditNote={handleEditNote} />
         </main>
       </div>
       <NoteModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        onSubmit={handleCreateNote}
+        onSubmit={handleSaveNote}
+        editingNote={editingNote}
       />
     </div>
   );

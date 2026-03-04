@@ -1,6 +1,6 @@
 import NoteCard from "./NoteCard";
 
-function NotesGrid({ notes = [], filter = "all", searchTerm = "", onDeleteNote, onToggleImportant }) {
+function NotesGrid({ notes = [], filter = "all", searchTerm = "", onDeleteNote, onToggleImportant, onEditNote }) {
   // compute heading based on filter and search
   let heading;
   if (searchTerm) {
@@ -31,7 +31,7 @@ function NotesGrid({ notes = [], filter = "all", searchTerm = "", onDeleteNote, 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filtered.length > 0 ? (
           filtered.map((note) => (
-            <NoteCard key={note.id} note={note} onDeleteNote={onDeleteNote} onToggleImportant={onToggleImportant} />
+            <NoteCard key={note.id} note={note} onDeleteNote={onDeleteNote} onToggleImportant={onToggleImportant} onEditNote={onEditNote} />
           ))
         ) : (
           <p className="col-span-full text-center text-gray-500">

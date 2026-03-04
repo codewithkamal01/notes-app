@@ -1,14 +1,24 @@
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function NoteModal({ isOpen, onClose, onSubmit }) {
+function NoteModal({ isOpen, onClose, onSubmit, editingNote = null }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  useEffect(() => {
+    if (editingNote) {
+      setTitle(editingNote.title);
+      setContent(editingNote.content);
+    } else {
+      setTitle("");
+      setContent("");
+    }
+  }, [editingNote, isOpen]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (title.trim() || content.trim()) {
-      onSubmit({ title: title || "Untitled", content });
+      onSubmit({ title: title || "Untitled", content, id: editingNote?.id });
       setTitle("");
       setContent("");
       onClose();
@@ -21,7 +31,7 @@ function NoteModal({ isOpen, onClose, onSubmit }) {
     <div className="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-lg w-96 p-6">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-semibold">Create New Note</h2>
+          <h2 className="text-2xl font-semibold">{editingNote ? "Edit Note" : "Create New Note"}</h2>
           <button
             onClick={onClose}
             className="text-gray-400 hover:text-gray-600 transition cursor-pointer"
@@ -69,7 +79,7 @@ function NoteModal({ isOpen, onClose, onSubmit }) {
               type="submit"
               className="px-4 py-2 cursor-pointer bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
             >
-              Create Note
+              {editingNote ? "Update Note" : "Create Note"}
             </button>
           </div>
         </form>
