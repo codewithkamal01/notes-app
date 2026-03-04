@@ -33,6 +33,7 @@ function Note({ filter = "all" }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [editingNote, setEditingNote] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleOpenModal = () => {
     setEditingNote(null);
@@ -82,10 +83,10 @@ function Note({ filter = "all" }) {
   return (
     <div>
       <div className="flex h-screen bg-gray-100 font-sans">
-        <Sidebar />
+        <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
         {/* Main Content */}
         <main className="flex-1 flex flex-col">
-          <Header onAddNote={handleOpenModal} onSearch={handleSearch} searchValue={searchTerm} />
+          <Header onAddNote={handleOpenModal} onSearch={handleSearch} searchValue={searchTerm} onMenuOpen={() => setIsSidebarOpen(true)} />
           <NotesGrid notes={notes} filter={filter} searchTerm={searchTerm} onDeleteNote={handleDeleteNote} onToggleImportant={handleToggleImportant} onEditNote={handleEditNote} />
         </main>
       </div>
