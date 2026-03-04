@@ -1,3 +1,92 @@
+📝 Notes App
+
+A simple and responsive Notes Application that allows users to create, edit, and delete notes easily. This project helps users organize their ideas, tasks, and reminders in a clean interface.
+
+The app is lightweight, fast, and designed for quick note-taking directly in the browser.
+
+🚀 Features
+
+➕ Create new notes
+
+📝 Edit existing notes
+
+❌ Delete notes
+
+📱 Responsive UI design
+
+⚡ Fast and simple user interface
+
+Many modern note-taking apps follow similar basic functionality such as creating, editing, and managing notes in a clean interface to help users organize information efficiently.
+
+🛠️ Tech Stack
+
+HTML5 – Structure
+
+CSS3 / Tailwind CSS – Styling
+
+JavaScript / React – Functionality
+
+
+📂 Project Structure
+
+
+⚙️ Installation & Setup
+
+Clone the repository
+
+git clone https://github.com/codewithkamal01/notes-app.git
+
+Go to the project folder
+
+cd notes-app
+
+If using React / Vite
+
+npm install
+npm run dev
+
+Then open:
+
+http://localhost:5173
+
+💡 Use Cases
+
+Quick personal notes
+
+To-do lists
+
+Study notes
+
+Idea tracking
+
+Daily reminders
+
+🌱 Future Improvements
+
+Search notes
+
+Dark mode
+
+Tags or categories
+
+Cloud storage
+
+Authentication system
+
+👨‍💻 Author
+
+Kamal Manna
+
+GitHub:
+https://github.com/codewithkamal01
+
+⭐ Support
+
+If you like this project, consider starring the repository.
+
+
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
